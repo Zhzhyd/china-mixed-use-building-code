@@ -1,0 +1,42 @@
+{
+  "model": {
+    "text_model_dir": "weights/Atom-7B-Chat",
+    "vision_checkpoint": "weights/mobile_sam.pt",
+    "device": "cuda:0",
+    "text_dtype": "float16",
+    "train_text_projection": false,
+    "initial_weights": null,
+    "initial_state_key": null
+  },
+  "data": {
+    "train_manifest": "data/train.json",
+    "validation_manifest": "data/validation.json",
+    "predict_manifest": "data/predict.json"
+  },
+  "preprocessing": {
+    "image_size": 1024,
+    "grid_size": 64,
+    "raster_names": ["road"],
+    "raster_channels": [1],
+    "min_tokens": 512,
+    "max_tokens": null,
+    "padding_token_id": 2,
+    "pixel_mean": [123.675, 116.28, 103.53],
+    "pixel_std": [58.395, 57.12, 57.375]
+  },
+  "training": {
+    "output_dir": "runs/bhenet",
+    "epochs": 400,
+    "learning_rate": 0.00002,
+    "weight_decay": 0.01,
+    "scheduler_t_max": 400,
+    "eta_min": 0.00001,
+    "seed": 2025
+  },
+  "inference": {
+    "checkpoint": "runs/bhenet/last.pt",
+    "checkpoint_state_key": null,
+    "output_csv": "predictions/buildings.csv",
+    "max_tokens": 512
+  }
+}
